@@ -21,6 +21,7 @@ contract Library {
         _;
     }
 
+    string public name;
     address owner;
 
     uint256 public thingsCount = 0;
@@ -30,7 +31,8 @@ contract Library {
     mapping(uint256 => ThingItem) public inventory;
     mapping(address => mapping(uint256 => uint256)) public borrowedItems;
 
-    constructor() {
+    constructor(string memory _name) {
+        name = _name;
         owner = msg.sender;
     }
 
@@ -56,13 +58,13 @@ contract Library {
         inventoryCount -= 1;
     }
 
-    function borrowItem(uint256 _id, address _borrower) public {
-        inventory[_id]._holder = _borrower;
-        borrowedItems[_borrower][_id] = block.timestamp;
+    function borrowItem(uint256 _id) public {
+        inventory[_id]._holder = msg.sender;
+        borrowedItems[msg.sender][_id] = block.timestamp;
     }
 
-    function returnItem(uint256 _id, address _borrower) public {
+    function returnItem(uint256 _id) public {
         inventory[_id]._holder = owner;
-        delete borrowedItems[_borrower][_id];
+        delete borrowedItems[msg.sender][_id];
     }
 }
