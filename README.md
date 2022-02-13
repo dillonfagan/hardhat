@@ -1,4 +1,4 @@
-# Crypto Playground
+# Hardhat Playground
 
 This is a Hardhat project with a bunch of random smart contracts in it. Just for experimenting.
 
