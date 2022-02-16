@@ -2,13 +2,13 @@
 pragma solidity ^0.8.0;
 
 contract MutualToken {
-    uint256 public constant creditLimit = 2_500;
-
     mapping(address => int256) balances;
     string public symbol;
+    uint256 public creditLimit;
 
-    constructor(string memory _symbol) {
+    constructor(string memory _symbol, uint256 _creditLimit) {
         symbol = _symbol;
+        creditLimit = _creditLimit;
     }
 
     modifier hasCredit(uint256 _amount) {
